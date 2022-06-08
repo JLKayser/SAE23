@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Catégorie</title>
+</head>
+<body>
+    <div>
+        <h1>Voici la liste des Catégorie crée :</h1>
+        <br>
+        {% for l in listALL_categorie %}
+        {{ l }}<button><a href="/drive/affiche-catégorie/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-catégorie/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-catégorie/{{l.id}}/">DELETE</a></button><br>
+        {% endfor %}
+    </div>
+</body>
+</html>
