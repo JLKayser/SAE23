@@ -4,13 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>DRIVE SAE23</title>
+    {% load static %}
+    <link href="{% static 'categorie/main.css' %}" rel="stylesheet">
 </head>
 <body>
-    Hello World 
-    <br><button><a href="/drive/index-catégorie/">Catégorie</a></button>
-    <br><button><a href="/drive/index-commande/">Commande</a></button>
-    <br><button><a href="/drive/index-client/">Client</a></button>
-    <br><button><a href="/drive/index-produit/">Produit</a></button>
+    <nav class="navbar">
+    <div class="drive">
+        Drive
+    </div>
+        <ul class="nav-list" id="list">
+            <li><a href="/">HOME</a></li>
+        <li><a href="/drive/index-catégorie/">Catégorie</a></li>
+        <li><a href="/drive/index-commande/">Commande</a></li>
+        <li><a href="/drive/index-client/">Client</a></li>
+        <li><a href="/drive/index-produit/">Produit</a></li>
+
+        </ul>
+
+        <div class="menu" id="button_menu" onclick="menu()">
+        <div class="ligne"></div>
+        <div class="ligne"></div>
+        <div class="ligne"></div>
+        </div>
+</nav>
+<script>
+    function menu(){
+    var nav = document.getElementById('list');
+        if(nav.style.display=="block"){
+            nav.style.display="none";
+        }else{
+            nav.style.display="block";
+        }
+    }
+</script>
+{% block content %}
+{% endblock %}
 </body>
 </html>

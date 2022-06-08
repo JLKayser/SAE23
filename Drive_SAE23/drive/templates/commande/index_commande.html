@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Commandes</title>
-</head>
-<body>
-    <div>
-        <h1>Voici la liste des Commandes crées :</h1>
-        <button><a href="/drive/formulaire-commande/">FORMULAIRE</a></button>
-        <br>
+{% extends "index.html" %}
+{% block title %}
+Drive
+{% endblock %}
+{% block content %}
+    <h1>Voici la liste des Commandes crées :</h1>
+        <h2><a href="/drive/formulaire-commande/">Ajouter une commande</a></h2>
+    <div class="bloc-info">
         {% for l in listALL_commande %}
-        {{ l }}<button><a href="/drive/affiche-commande/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-commande/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-commande/{{l.id}}/">DELETE</a></button><br>
+        {{ l }}<div class="separ-button"><button><a href="/drive/affiche-commande/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-commande/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-commande/{{l.id}}/">DELETE</a></button></div>
         {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}

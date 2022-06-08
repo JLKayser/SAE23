@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Produit</title>
-</head>
-<body>
-    <div>
-        <h1>Voici la liste des Produits crées :</h1>
-        <button><a href="/drive/formulaire-produit/">FORMULAIRE</a></button>
-        <br>
+{% extends "index.html" %}
+{% block title %}
+Drive
+{% endblock %}
+{% block content %}
+    <h1>Voici la liste des Produits crées :</h1>
+        <h2><a href="/drive/formulaire-produit/">Ajouter un produit</a></h2>
+    <div class="bloc-info">
         {% for l in listALL_produit %}
-        {{ l.nom }} - {{ l.date }} - {{ l.marques }} - {{ l.auteur }} - {{ l.categorie }} - {{ l.photo }}<!--la photo peux être vide donc je le mets à la fin pour pas avoir de troue--> <button><a href="/drive/affiche-produit/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-produit/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-produit/{{l.id}}/">DELETE</a></button><br>
+        {{ l.nom }} - {{ l.date }} - {{ l.marques }} - {{ l.auteur }} - {{ l.categorie }} - {{ l.photo }}<!--la photo peux être vide donc je le mets à la fin pour pas avoir de troue--> <button><a href="/drive/affiche-produit/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-produit/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-produit/{{l.id}}/">DELETE</a></button>
         {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}
