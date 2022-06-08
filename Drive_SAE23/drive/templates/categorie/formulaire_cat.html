@@ -7,13 +7,14 @@
     <title>Formulaire Catégorie</title>
 </head>
 <body>
+    Formulaire Catégorie
     {% if id_cat == none %}
         <form method="post" action="/drive/traitement-catégorie/">  
     {% else %}
         <form method="post" action="/drive/updatetraitement-catégorie/{{id_cat}}/">
-        {% csrf_token %}
-        {{ form_cat.as_ul }}
-        <input class="submit-input" type="submit" value="envoyer"\>
     {% endif %}
+        {% csrf_token %}
+    {{ form_cat.as_ul }}
+    <input class="submit-input" type="submit" value="envoyer"\>
 </body>
 </html>

@@ -7,7 +7,7 @@ class cat_product(models.Model):
     descriptif = models.CharField(max_length=100)
 
     def __str__(self):
-        chaine = f"Voici le nom du produit : {self.nom} \n Descriptif : {self.descriptif}"
+        chaine = f"{self.nom} | {self.descriptif}"
         return chaine
 
     def dictionnaire(self):
@@ -17,17 +17,17 @@ class cat_product(models.Model):
 class product(models.Model):
     nom = models.CharField(max_length=100)
     date = models.DateField()
-    photo = models.FileField(upload_to='', storage=None)
+    photo = models.FileField(upload_to='', storage=None, null=True, blank=True, default="APLU")
     marques = models.CharField(max_length=100)
     auteur = models.CharField(max_length=100)
     categorie = models.ForeignKey("cat_product",on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        chaine = f"{self.nom}"
+        chaine = f"{self.nom} | {self.date} | {self.photo} | {self.marques} | {self.auteur} | {self.categorie}"
         return chaine
 
     def dictionnaire(self):
-        return {"nom":self.nom}
+        return {"nom":self.nom, "date":self.date,"photo":self.photo,"marques":self.marques,"auteur":self.auteur,"categorie":self.categorie}
 
 #____________________________________________________________
 class client(models.Model):
@@ -38,11 +38,11 @@ class client(models.Model):
     adresse = models.CharField(max_length=100)
 
     def __str__(self):
-        chaine = f"{self.nom}"
+        chaine = f"{self.num_client} | {self.nom} | {self.prenom} | {self.date_inscription} | {self.adresse}"
         return chaine
 
     def dictionnaire(self):
-        return {"nom":self.nom}
+        return {"num_client":self.num_client,"nom":self.nom,"prenom":self.prenom,"date_inscription":self.date_inscription,"adresse":self.adresse}
 
 
 #____________________________________________________________
@@ -52,11 +52,11 @@ class commandes(models.Model):
     date_inscription = models.DateField()
 
     def __str__(self):
-        chaine = f"{self.num_commande}"
+        chaine = f"{self.num_commande} | {self.client} | {self.date_inscription}"
         return chaine
 
     def dictionnaire(self):
-        return {"nom":self.num_commande}
+        return {"num_commande":self.num_commande,"client":self.client,"date_inscription":self.date_inscription}
 
 
 

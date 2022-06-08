@@ -44,6 +44,6 @@ class Commande(ModelForm):
 		fields = ('num_commande', 'client', 'date_inscription')
 		labels = {
 			'num_commande' : _('Numéro de Commandes'),
-			'client' : _("Budget de la structure"),
+			'client' : _("Client"),
 			'date_inscription' : _("Date d'inscription")
 			}
