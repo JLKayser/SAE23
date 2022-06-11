@@ -18,7 +18,7 @@ class Produit(ModelForm):
 		fields = ('nom', 'date', 'photo', 'marques','auteur','categorie')
 		labels = {
 			'nom' : _('Nom'),
-			'date' : _("Date Péremption"),
+			'date' : _("Date Péremption (mois/jour/année)"),
 			'photo' : _('Photo'),
 			'marques' : _('Marques'),
 			'auteur' : _('Auteur'),
@@ -33,7 +33,7 @@ class Client(ModelForm):
 			'num_client' : _('Numéro Client'),
 			'nom' : _("Nom du Client"),
 			'prenom' : _('Prénom du Client'),
-			'date_inscription' : _("Date d'inscription"),
+			'date_inscription' : _("Date d'inscription (mois/jour/année)"),
 			'adresse' : _("Adresse")
 			}
 
@@ -41,9 +41,22 @@ class Client(ModelForm):
 class Commande(ModelForm):
 	class Meta:
 		model = models.commandes
-		fields = ('num_commande', 'client', 'date_inscription')
+		fields = ('num_commande', 'client', 'date')
 		labels = {
 			'num_commande' : _('Numéro de Commandes'),
 			'client' : _("Client"),
-			'date_inscription' : _("Date d'inscription")
+			'date' : _("Date (mois/jour/année)"),
+			'produit' : _("Produit de la Commande")
+			}
+
+
+
+class ListeCommande(ModelForm):
+	class Meta:
+		model = models.liste_commande
+		fields = ('commande', 'produit', 'quantite')
+		labels = {
+			'commande' : _('Commandes'),
+			'produit' : _("Produit à ajouter"),
+			'quantite' : _("Quantité du Produit")
 			}

@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Client</title>
-</head>
-<body>
-    <div>
+{% extends "index.html" %}
+{% block title %}
+Drive
+{% endblock %}
+{% block content %}
         <h1>Voici la liste des Clients crées :</h1>
         <button><a href="/drive/formulaire-client/">FORMULAIRE</a></button>
         <br>
         {% for l in listALL_client %}
-        {{ l }}<button><a href="/drive/affiche-client/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-client/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-client/{{l.id}}/">DELETE</a></button><br>
+        <div class="bloc-info">
+            <div class="container">{{ l.prenom }} {{ l.nom }}<button><a href="/drive/affiche-client/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-client/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-client/{{l.id}}/">DELETE</a></button></div>
+        </div>
         {% endfor %}
-    </div>
-</body>
-</html>
+    {% endblock %}

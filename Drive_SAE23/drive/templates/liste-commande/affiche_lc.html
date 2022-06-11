@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block title %}
+Drive
+{% endblock %}
+{% block content %}
+    <div>
+        Voici la liste des produits de la commande : {{ liste_commande.produit }}<br>
+        Voici la commande en question : {{ liste_commande.commande }}<br>
+        La quantité du produits : {{ liste_commande.quantite_produit }}<br>
+        <button><a href="/drive/index-liste-commande/">RETOUR</a></button>
+    </div>
+{% endblock %}

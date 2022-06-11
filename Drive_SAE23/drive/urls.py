@@ -35,4 +35,11 @@ urlpatterns = [
     path('drive/update-produit/<int:id>/', views.update_produit),
     path('drive/updatetraitement-produit/<int:id>/', views.updatetraitement_produit),
 
+    path('drive/formulaire-liste-commande/', views.formulaire_liste_commande),
+    path('drive/traitement-liste-commande/', views.traitement_liste_commande),
+    path('drive/index-liste-commande/', views.index_liste_commande),
+    path('drive/affiche-liste-commande/<int:id>/', views.affiche_liste_commande),
+    path('drive/delete-liste-commande/<int:id>/', views.delete_liste_commande),
+    path('drive/update-liste-commande/<int:id>/', views.update_liste_commande),
+    path('drive/updatetraitement-liste-commande/<int:id>/', views.updatetraitement_liste_commande)
 ]

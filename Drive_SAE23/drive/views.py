@@ -1,6 +1,6 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .forms import Categorie, Commande, Client, Produit
+from .forms import Categorie, Commande, Client, Produit, ListeCommande
 from . import models
 
 def index(request):
@@ -233,3 +233,62 @@ def delete_produit(request, id):
 	produit = models.product.objects.get(pk=id)
 	produit.delete()
 	return HttpResponseRedirect("/drive/index-produit/")
+
+
+
+
+
+
+
+#________________________Liste Commande____________________________ 
+def formulaire_liste_commande(request):
+	if request.method == "POST":
+		form = ListeCommande(request)
+		if form.is_valid():
+			liste_commande = form.save()
+			return render(request,"liste-commande/affiche_lc.html",{"lc" : liste_commande})
+		else:
+			return render(request,"liste-commande/formulaire_lc.html",{"form_lc": form})
+	else :
+		form = ListeCommande()
+		return render(request,"liste-commande/formulaire_lc.html",{"form_lc" : form})
+
+
+def traitement_liste_commande(request):
+	form = ListeCommande(request.POST)
+	if form.is_valid():
+		liste_commande = form.save()
+		liste_commande.save()
+		return HttpResponseRedirect("/drive/index-liste-commande/")
+	else:
+		return render(request,"liste-commande/formulaire_lc.html",{"lc" : liste_commande})
+
+def index_liste_commande(request):
+	liste = list(models.liste_commande.objects.all())
+	return render(request,"liste-commande/index_lc.html",{"listALL_lc": liste})
+
+def affiche_liste_commande(request, id):
+	liste_commande = models.liste_commande.objects.get(pk=id)
+	return render(request,'liste-commande/affiche_lc.html',{"lc": liste_commande})
+
+
+def update_liste_commande(request, id):
+	liste_commande = models.liste_commande.objects.get(pk=id)
+	form = ListeCommande(liste_commande.dictionnaire())
+	return render(request,'liste-commande/formulaire_lc.html',{"form_lc": form, "id_lc":id})
+
+
+def updatetraitement_liste_commande(request, id):
+	form = ListeCommande(request.POST)
+	if form.is_valid():
+		liste_commande = form.save(commit=False)
+		liste_commande.id = id
+		liste_commande.save()
+		return HttpResponseRedirect(f"/drive/index-liste-commande/")
+	else:
+		return render(request,"liste-commande/formulaire_lc.html",{"form_lc": form, "id_lc":id})
+
+def delete_liste_commande(request, id):
+	liste_commande = models.liste_commande.objects.get(pk=id)
+	liste_commande.delete()
+	return HttpResponseRedirect("/drive/index-liste-commande/")
