@@ -4,12 +4,12 @@ Drive
 {% endblock %}
 {% block content %}
     <div>
-        Voici {{ produit.nom }} :<br>
+        Voici notre produit : {{ produit.produit }}<br>
         Date de péremption : {{ produit.date }}<br>
         Marque : {{ produit.marques }}<br>
         Son auteur est {{ produit.auteur }}<br>
         Dans la catégorie : {{ produit.categorie }}<br>
-        Voici une image du produit :{{ produit.photo }}<br>
+        Voici une image du produit :<div class="container_image_produit"><img width="250" height="250" src="{{ produit.photo }}" alt="{{ produit.photo }}"></div><br>
         <button><a href="/drive/index-produit/">RETOUR</a></button>
     </div>
     {% endblock %}

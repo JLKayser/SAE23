@@ -8,7 +8,7 @@ Drive
         <br>
         {% for l in listALL_produit %}
         <div class="bloc-info">
-            <div class="container">{{ l.nom }} - {{ l.categorie.nom }}<button><a href="/drive/affiche-produit/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-produit/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-produit/{{l.id}}/">DELETE</a></button></div>
+            <div class="container">{{ l.produit }} - {{ l.categorie.nom }}<button><a href="/drive/affiche-produit/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-produit/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-produit/{{l.id}}/">DELETE</a></button></div>
         </div>
         {% endfor %}
     {% endblock %}

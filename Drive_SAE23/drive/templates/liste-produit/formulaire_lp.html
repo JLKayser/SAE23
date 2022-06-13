@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{% block title %}
+Drive
+{% endblock %}
+{% block content %}
+    {% if id_lp == none %}
+        <form method="post" action="/drive/traitement-liste-produit/">  
+    {% else %}
+        <form method="post" action="/drive/updatetraitement-liste-produit/{{id_lp}}/">
+    {% endif %}
+    {% csrf_token %}
+    {{ form_lp.as_ul }}
+    <input class="submit-input" type="submit" value="SEND"/>
+            <button><a href="/drive/index-liste-produit/">RETOUR</a></button>
+{% endblock %}

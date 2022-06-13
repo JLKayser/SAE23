@@ -1,6 +1,6 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .forms import Categorie, Commande, Client, Produit, ListeCommande
+from .forms import Categorie, Commande, Client, Produit, ListeCommande,ListeProduit
 from . import models
 
 def index(request):
@@ -237,9 +237,6 @@ def delete_produit(request, id):
 
 
 
-
-
-
 #________________________Liste Commande____________________________ 
 def formulaire_liste_commande(request):
 	if request.method == "POST":
@@ -292,3 +289,59 @@ def delete_liste_commande(request, id):
 	liste_commande = models.liste_commande.objects.get(pk=id)
 	liste_commande.delete()
 	return HttpResponseRedirect("/drive/index-liste-commande/")
+
+
+
+
+#________________________Liste Produit____________________________ 
+def formulaire_liste_produit(request):
+	if request.method == "POST":
+		form = ListeProduit(request)
+		if form.is_valid():
+			liste_produit = form.save()
+			return render(request,"liste-produit/affiche_lp.html",{"lp" : liste_produit})
+		else:
+			return render(request,"liste-produit/formulaire_lp.html",{"form_lp": form})
+	else :
+		form = ListeProduit()
+		return render(request,"liste-produit/formulaire_lp.html",{"form_lp" : form})
+
+
+def traitement_liste_produit(request):
+	form = ListeProduit(request.POST)
+	if form.is_valid():
+		liste_produit = form.save()
+		liste_produit.save()
+		return HttpResponseRedirect("/drive/index-liste-produit/")
+	else:
+		return render(request,"liste-produit/formulaire_lp.html",{"lp" : liste_produit})
+
+def index_liste_produit(request):
+	liste = list(models.liste_produit.objects.all())
+	return render(request,"liste-produit/index_lp.html",{"listALL_lp": liste})
+
+def affiche_liste_produit(request, id):
+	liste_produit = models.liste_produit.objects.get(pk=id)
+	return render(request,'liste-produit/affiche_lp.html',{"lp": liste_produit})
+
+
+def update_liste_produit(request, id):
+	liste_produit = models.liste_produit.objects.get(pk=id)
+	form = ListeProduit(liste_produit.dictionnaire())
+	return render(request,'liste-produit/formulaire_lp.html',{"form_lp": form, "id_lp":id})
+
+
+def updatetraitement_liste_produit(request, id):
+	form = ListeProduit(request.POST)
+	if form.is_valid():
+		liste_produit = form.save(commit=False)
+		liste_produit.id = id
+		liste_produit.save()
+		return HttpResponseRedirect(f"/drive/index-liste-produit/")
+	else:
+		return render(request,"liste-produit/formulaire_lp.html",{"form_lp": form, "id_lp":id})
+
+def delete_liste_produit(request, id):
+	liste_produit = models.liste_produit.objects.get(pk=id)
+	liste_produit.delete()
+	return HttpResponseRedirect("/drive/index-liste-produit/")
