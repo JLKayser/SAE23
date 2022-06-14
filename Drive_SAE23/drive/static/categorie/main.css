@@ -7,12 +7,18 @@
     overflow-x:hidden;
 }
 
-body{background-color:#90EE90;font-family:system-ui,arial;display:flex;align-items:center;flex-direction:column;}
+body{background-color:#A9A9A9;font-family:system-ui,arial;display:flex;align-items:center;flex-direction:column;}
 
 .drive{font-size:30px;color:black;}
 
+
+.decal{
+    margin-top:30px;
+}
+
+
 .navbar{
-    background-color:#D0F0C0;
+    background-color:#778899;
     display:flex;
     justify-content:space-around;
     align-items:center;
@@ -72,7 +78,7 @@ h1{
 }
 
 form{
-    background-color:#6eaa5e;
+    background-color:#778899;
     display:flex;
     justify-content:center;
     flex-direction:column;
@@ -101,24 +107,25 @@ label{
 }
 
 input[type=submit],button, button a {
-    background:#2f4a28;
+    background:#778899;
     font-family:system-ui,arial;
     padding: 1px 1px 1px 1px;
     text-decoration: none;
 }
 
 input[type=text],input[type=number],textarea,select,option{
-    color:black;
+    color:#778899;
     font-family:system-ui,arial;
 }
 
 .bloc-info{
-    background-color:#6eaa5e;
+    background-color:#778899;
     display:flex;
     flex-direction:column;
     width:40vw;
     border-radius:5px;
     box-shadow:1px 1px 1px 1px #558549;
+    margin:15px;
 }
 
 .bloc-info > .li-list{
