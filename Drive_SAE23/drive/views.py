@@ -2,6 +2,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .forms import Categorie, Commande, Client, Produit,ListeProduit
 from . import models
+from django.core.files import File
 
 def index(request):
 	return render(request, "index.html")
@@ -181,7 +182,25 @@ def delete_client(request, id):
 
 
 
-#________________________Produit____________________________ 
+#________________________Produit____________________________
+
+#Generate Text File Venue List
+
+def venue_text(request):
+	response = HttpResponse(content_type='text/plain')
+	response['Content-Dispostion'] = 'attachement; filename=venues.txt'
+
+
+
+	lines = ["VOICI UNE AIDE :\n",
+			 "IL FAUT AJOUTER UNE VIRGULE A CHAQUE FIN DE MOT ET COMMENCER LE PAR UN MOT DONC PRODUIT QUI EST LA TABLE\n",
+			 "EXEMPLE : produit(frite,pate,pizza)\n\n"
+			 "FIN DE L'AIDE"]
+
+	#Write to TextFile
+	response.writelines(lines)
+	return response
+
 def formulaire_produit(request):
 	if request.method == "POST":
 		form = Produit(request)
