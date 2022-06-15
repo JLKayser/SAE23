@@ -7,7 +7,7 @@ Drive
         <h2><a href="/drive/formulaire-liste-produit/">Ajouter une liste de produit</a></h2>
     {% for l in listALL_lp %}
         <div class="bloc-info">
-            <div class="container">{{ l.produit }} x{{ l.quantite }}<button><a href="/drive/affiche-liste-produit/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-liste-produit/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-liste-produit/{{l.id}}/">DELETE</a></button></div>
+            <div class="container">{{ l.commande.client.prenom }} {{ l.commande.client.nom }} : {{ l.produit.produit }} x{{ l.quantite }}<button><a href="/drive/affiche-liste-produit/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-liste-produit/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-liste-produit/{{l.id}}/">DELETE</a></button></div>
         </div>
     {% endfor %}
 {% endblock %}

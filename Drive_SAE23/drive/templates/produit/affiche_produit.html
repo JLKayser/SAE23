@@ -6,10 +6,12 @@ Drive
     <div>
         Voici notre produit : {{ produit.produit }}<br>
         Date de péremption : {{ produit.date }}<br>
+        Prix du produit à l'unité : {{ produit.prix }}€<br>
         Marque : {{ produit.marques }}<br>
         Son auteur est {{ produit.auteur }}<br>
         Dans la catégorie : {{ produit.categorie }}<br>
-        Voici une image du produit :<div class="container_image_produit"><img width="250" height="250" src="{{ produit.photo }}" alt="{{ produit.photo }}"></div><br>
+        Stock du produit : {{ produit.stock }}<br>
+        <div class="container_image_produit"><img width="250" height="250" src="{{ produit.photo }}" alt="{{ produit.photo }}"></div><br>
         <button><a href="/drive/index-produit/">RETOUR</a></button>
     </div>
     {% endblock %}

@@ -1,6 +1,6 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .forms import Categorie, Commande, Client, Produit, ListeCommande,ListeProduit
+from .forms import Categorie, Commande, Client, Produit,ListeProduit
 from . import models
 
 def index(request):
@@ -205,16 +205,16 @@ def traitement_produit(request):
 		return render(request,"produit/formulaire_produit.html",{"produit" : produit})
 
 def index_produit(request):
-	liste = list(models.product.objects.all())
+	liste = list(models.produit.objects.all())
 	return render(request,"produit/index_produit.html",{"listALL_produit": liste})
 
 def affiche_produit(request, id):
-	produit = models.product.objects.get(pk=id)
+	produit = models.produit.objects.get(pk=id)
 	return render(request,'produit/affiche_produit.html',{"produit": produit})
 
 
 def update_produit(request, id):
-	produit = models.product.objects.get(pk=id)
+	produit = models.produit.objects.get(pk=id)
 	form = Produit(produit.dictionnaire())
 	return render(request,'produit/formulaire_produit.html',{"form_produit": form, "id_produit":id})
 
@@ -230,66 +230,9 @@ def updatetraitement_produit(request, id):
 		return render(request,"produit/formulaire_produit.html",{"form_produit": form, "id_produit":id})
 
 def delete_produit(request, id):
-	produit = models.product.objects.get(pk=id)
+	produit = models.produit.objects.get(pk=id)
 	produit.delete()
 	return HttpResponseRedirect("/drive/index-produit/")
-
-
-
-
-#________________________Liste Commande____________________________ 
-def formulaire_liste_commande(request):
-	if request.method == "POST":
-		form = ListeCommande(request)
-		if form.is_valid():
-			liste_commande = form.save()
-			return render(request,"liste-commande/affiche_lc.html",{"lc" : liste_commande})
-		else:
-			return render(request,"liste-commande/formulaire_lc.html",{"form_lc": form})
-	else :
-		form = ListeCommande()
-		return render(request,"liste-commande/formulaire_lc.html",{"form_lc" : form})
-
-
-def traitement_liste_commande(request):
-	form = ListeCommande(request.POST)
-	if form.is_valid():
-		liste_commande = form.save()
-		liste_commande.save()
-		return HttpResponseRedirect("/drive/index-liste-commande/")
-	else:
-		return render(request,"liste-commande/formulaire_lc.html",{"lc" : liste_commande})
-
-def index_liste_commande(request):
-	liste = list(models.liste_commande.objects.all())
-	return render(request,"liste-commande/index_lc.html",{"listALL_lc": liste})
-
-def affiche_liste_commande(request, id):
-	liste_commande = models.liste_commande.objects.get(pk=id)
-	return render(request,'liste-commande/affiche_lc.html',{"lc": liste_commande})
-
-
-def update_liste_commande(request, id):
-	liste_commande = models.liste_commande.objects.get(pk=id)
-	form = ListeCommande(liste_commande.dictionnaire())
-	return render(request,'liste-commande/formulaire_lc.html',{"form_lc": form, "id_lc":id})
-
-
-def updatetraitement_liste_commande(request, id):
-	form = ListeCommande(request.POST)
-	if form.is_valid():
-		liste_commande = form.save(commit=False)
-		liste_commande.id = id
-		liste_commande.save()
-		return HttpResponseRedirect(f"/drive/index-liste-commande/")
-	else:
-		return render(request,"liste-commande/formulaire_lc.html",{"form_lc": form, "id_lc":id})
-
-def delete_liste_commande(request, id):
-	liste_commande = models.liste_commande.objects.get(pk=id)
-	liste_commande.delete()
-	return HttpResponseRedirect("/drive/index-liste-commande/")
-
 
 
 
@@ -310,23 +253,32 @@ def formulaire_liste_produit(request):
 def traitement_liste_produit(request):
 	form = ListeProduit(request.POST)
 	if form.is_valid():
-		liste_produit = form.save()
+		#stock_produit = ListeProduit(request.POST.dictionnaire())
+		#quantite_commande = request.POST.quantite
+		#if stock_produit > quantite_commande:
+		#	models.produit.objects.update(stock=stock_produit-quantite_commande)
+		liste_produit = form.save(commit=False)
 		liste_produit.save()
 		return HttpResponseRedirect("/drive/index-liste-produit/")
+		#else:
+		#	return render(request,"liste-produit/formulaire_lp.html",{"lp" : liste_produit})
 	else:
 		return render(request,"liste-produit/formulaire_lp.html",{"lp" : liste_produit})
 
 def index_liste_produit(request):
-	liste = list(models.liste_produit.objects.all())
+	liste = list(models.liste_pc.objects.all())
 	return render(request,"liste-produit/index_lp.html",{"listALL_lp": liste})
 
 def affiche_liste_produit(request, id):
-	liste_produit = models.liste_produit.objects.get(pk=id)
-	return render(request,'liste-produit/affiche_lp.html',{"lp": liste_produit})
+	liste_produit = models.liste_pc.objects.get(pk=id)
+	#quantite_commande = ListeProduit(liste_produit.produit.prix)
+	#prix_produit_commande = ListeProduit(liste_produit.quantite)
+	#prix_totale_commande = int(prix_produit_commande)*int(quantite_commande)
+	return render(request,'liste-produit/affiche_lp.html',{"lp": liste_produit}) #, "prix":prix_totale_commande
 
 
 def update_liste_produit(request, id):
-	liste_produit = models.liste_produit.objects.get(pk=id)
+	liste_produit = models.liste_pc.objects.get(pk=id)
 	form = ListeProduit(liste_produit.dictionnaire())
 	return render(request,'liste-produit/formulaire_lp.html',{"form_lp": form, "id_lp":id})
 
@@ -342,6 +294,6 @@ def updatetraitement_liste_produit(request, id):
 		return render(request,"liste-produit/formulaire_lp.html",{"form_lp": form, "id_lp":id})
 
 def delete_liste_produit(request, id):
-	liste_produit = models.liste_produit.objects.get(pk=id)
+	liste_produit = models.liste_pc.objects.get(pk=id)
 	liste_produit.delete()
 	return HttpResponseRedirect("/drive/index-liste-produit/")

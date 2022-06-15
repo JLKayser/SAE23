@@ -4,8 +4,8 @@ Drive
 {% endblock %}
 {% block content %}
     <div>
-        Voici la liste des produits de la commande : {{ lp.produit }}<br>
-        La quantité du produits : {{ lp.quantite }}<br>
+        {{ lp.commande.client.prenom }} {{ lp.commande.client.nom }} à commandé  {{ lp.quantite }} {{ lp.produit.produit }}<br>
+        Pour un prix totale de : {{ prix }}<br>
         <button><a href="/drive/index-liste-produit/">RETOUR</a></button>
     </div>
 {% endblock %}

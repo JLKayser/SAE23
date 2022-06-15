@@ -15,8 +15,8 @@ class Categorie(ModelForm):
 
 class Produit(ModelForm):
     class Meta:
-        model = models.product
-        fields = ('produit', 'date', 'photo', 'marques','auteur','categorie')
+        model = models.produit
+        fields = ('produit', 'date', 'photo', 'marques','auteur','categorie','stock','prix')
         labels = {
             'produit' : _('Nom'),
             'date' : _("Date Péremption (mois/jour/année)"),
@@ -24,6 +24,8 @@ class Produit(ModelForm):
             'marques' : _('Marques'),
             'auteur' : _('Auteur'),
             'catégorie' : _('Catégorie'),
+            'stock' : _('Stock du produit'),
+            "prix" : _("Prix à l'unité"),
             }
 
 class Client(ModelForm):
@@ -51,21 +53,12 @@ class Commande(ModelForm):
 
 
 
-class ListeCommande(ModelForm):
-    class Meta:
-        model = models.liste_commande
-        fields = ('commande', 'produit')
-        labels = {
-            'commande' : _('Commandes'),
-            'produit' : _("Produit à ajouter"),
-            }
-
-
 class ListeProduit(ModelForm):
     class Meta:
-        model = models.liste_produit
-        fields = ('produit', 'quantite')
+        model = models.liste_pc
+        fields = ('commande','produit','quantite')
         labels = {
-            'produit' : _('Produit'),
-            'quantite' : _("Quantité ")
+            'commande' : _("Commande "),
+            'produit' : _("Produit de la commande"),
+            'quantite' : _("Quantité du produit")
             }
