@@ -187,18 +187,27 @@ def delete_client(request, id):
 #Generate Text File Venue List
 
 def venue_text(request):
-	response = HttpResponse(content_type='text/plain')
+	response = HttpResponse(content_type='text/plain' )
 	response['Content-Dispostion'] = 'attachement; filename=venues.txt'
 
+	produits = models.produit.objects.all()
+
+	#Create Liste Vide
+	lines2 = []
+
+	for produit in produits:
+		lines2.append(f'{produit.produit} | {produit.marques} | {produit.prix}\n')
 
 
 	lines = ["VOICI UNE AIDE :\n",
-			 "IL FAUT AJOUTER UNE VIRGULE A CHAQUE FIN DE MOT ET COMMENCER LE PAR UN MOT DONC PRODUIT QUI EST LA TABLE\n",
+			 "IL FAUT AJOUTER UNE VIRGULE A CHAQUE FIN DE MOT ET COMMENCER LA FONCTION AVEC UN MOT D'UNE TABLE DONC PRODUIT\n",
 			 "EXEMPLE : produit(frite,pate,pizza)\n\n"
-			 "FIN DE L'AIDE"]
+			 "FIN DE L'AIDE\n",
+			 "-----------------AFFICHAGE-----------------\n"]
 
 	#Write to TextFile
 	response.writelines(lines)
+	response.writelines(lines2)
 	return response
 
 def formulaire_produit(request):
