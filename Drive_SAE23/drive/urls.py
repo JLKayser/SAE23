@@ -34,7 +34,7 @@ urlpatterns = [
     path('drive/delete-produit/<int:id>/', views.delete_produit),
     path('drive/update-produit/<int:id>/', views.update_produit),
     path('drive/updatetraitement-produit/<int:id>/', views.updatetraitement_produit),
-    path('drive/venue_text', views.venue_text, name='venue_text'),
+    path('drive/file_text', views.file_text, name='file_text'),
 
     path('drive/formulaire-liste-produit/', views.formulaire_liste_produit),
     path('drive/traitement-liste-produit/', views.traitement_liste_produit),

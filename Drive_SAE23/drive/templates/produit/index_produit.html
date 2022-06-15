@@ -11,5 +11,5 @@ Drive
             <div class="container">{{ l.produit }} - {{ l.categorie.nom }}<button><a href="/drive/affiche-produit/{{l.id}}/">AFFICHE</a></button><button><a href="/drive/update-produit/{{l.id}}/">UPDATE</a></button><button><a href="/drive/delete-produit/{{l.id}}/">DELETE</a></button></div>
         </div>
         {% endfor %}
-        <a href="{% url 'venue_text' %}">Venue Text File</a>
+        <a href="{% url 'file_text' %}" class="file">View Text File</a>
     {% endblock %}

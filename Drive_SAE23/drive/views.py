@@ -186,28 +186,35 @@ def delete_client(request, id):
 
 #Generate Text File Venue List
 
-def venue_text(request):
-	response = HttpResponse(content_type='text/plain' )
-	response['Content-Dispostion'] = 'attachement; filename=venues.txt'
+def file_text(request):
+	response = HttpResponse(content_type='text/plain')
+	response['Content-Dispostion'] = 'attachment; filename=Drive.txt'
 
 	produits = models.produit.objects.all()
 
 	#Create Liste Vide
 	lines2 = []
 
-	for produit in produits:
-		lines2.append(f'{produit.produit} | {produit.marques} | {produit.prix}\n')
 
-
-	lines = ["VOICI UNE AIDE :\n",
+	lines = ["VOICI UNE AIDE DE MON FILE TXT :\n",
 			 "IL FAUT AJOUTER UNE VIRGULE A CHAQUE FIN DE MOT ET COMMENCER LA FONCTION AVEC UN MOT D'UNE TABLE DONC PRODUIT\n",
 			 "EXEMPLE : produit(frite,pate,pizza)\n\n"
-			 "FIN DE L'AIDE\n",
-			 "-----------------AFFICHAGE-----------------\n"]
+			 "FIN DE L'AIDE\n\n",
+			 "---------------------------------------------------------------------------------AFFICHAGE--------------------------------------------------------------------------------------\n"]
+
+
+	for produit in produits:
+		lines2.append(f'{produit.produit} | {produit.marques} | {produit.prix} | {produit.auteur}\n')
+
+
+
+	lines3 = ["--------------------------------------------------------------VOICI L'AJOUT DE PRODUIT A LA BASE DE DONNEE PRODUIT--------------------------------------------------------------\n",]
+
 
 	#Write to TextFile
 	response.writelines(lines)
 	response.writelines(lines2)
+	response.writelines(lines3)
 	return response
 
 def formulaire_produit(request):
