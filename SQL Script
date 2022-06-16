@@ -1,0 +1,2 @@
+SELECT 
+FROM ((client INNER JOIN (cat_product INNER JOIN commandes ON cat_product.N° = commandes.N°) ON client.num_client = commandes.client) INNER JOIN liste_pc ON (client.N° = liste_pc.N°) AND (cat_product.N° = liste_pc.N°)) INNER JOIN produit ON (produit.N° = commandes.N°) AND (produit.produit = cat_product.nom) AND (liste_pc.produit = produit.produit);
