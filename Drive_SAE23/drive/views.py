@@ -1,4 +1,3 @@
-from math import prod
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .forms import Categorie, Commande, Client, Produit,ListeProduit
