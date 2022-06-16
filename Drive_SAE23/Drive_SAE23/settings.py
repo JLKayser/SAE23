@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import Path  #Voici les librairies utilisées
 import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -71,6 +71,8 @@ DATABASES = {
         'PASSWORD' : 'toto' # mot de passe de l'utilisateur
         'HOST' : 'localhost' # local
         'PORT' : '3306' 
+    }
+}
 
 
 # Password validation
