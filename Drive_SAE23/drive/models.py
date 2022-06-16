@@ -1,22 +1,6 @@
 from django.db import models
 
 
-
-stock = [
-    ("1","1"),
-    ("10","10"),
-    ("50","50"),
-    ("100","100"),
-    ("250","250"),
-    ("500","500"),
-    ("1000","1000"),
-    ("2500","2500"),
-    ("5000","5000"),
-    ("10000","10000"),
-    ("20000+","20000+"),
-]
-
-
 #____________________________________________________________
 class cat_product(models.Model):
     nom = models.CharField(max_length=100)
@@ -47,21 +31,22 @@ class client(models.Model):
 #____________________________________________________________
 class produit(models.Model):
     produit = models.CharField(max_length=100)
-    date = models.DateField()
+    date = models.DateField() #mettre la date par défault d'ajd
     photo = models.URLField(null=True, blank=True)
     marques = models.CharField(max_length=100)
     auteur = models.CharField(max_length=100)
     categorie = models.ForeignKey("cat_product",on_delete=models.CASCADE, null=True)
-    stock = models.CharField(max_length=10 ,choices=stock)
+    stock = models.BigIntegerField(max_length=10)
     prix = models.BigIntegerField(default="0")
 
 
     def __str__(self):
-        chaine = f"{self.produit} | {self.categorie}"
+        chaine = f"{self.produit} stock {self.stock}"
         return chaine
 
     def dictionnaire(self):
         return {"produit":self.produit, "date":self.date,"photo":self.photo,"marques":self.marques,"auteur":self.auteur,"categorie":self.categorie,"stock":self.stock,"prix":self.prix}
+
 
 
 #____________________________________________________________

@@ -5,6 +5,7 @@
     font-weight:1;
     color: black;
     overflow-x:hidden;
+     overflow-y:hidden;
 }
 
 body{background-color:#A9A9A9;font-family:system-ui,arial;display:flex;align-items:center;flex-direction:column;}
@@ -86,7 +87,7 @@ form{
     margin-top:75px;
     width:65vw;
     border-radius:5px;
-    box-shadow:1px 1px 1px 1px #558549;
+    box-shadow:1px 1px 1px 1px #5b656e;
 }
 
 form > li{
@@ -124,17 +125,7 @@ input[type=text],input[type=number],textarea,select,option{
     flex-direction:column;
     width:40vw;
     border-radius:5px;
-    box-shadow:1px 1px 1px 1px #558549;
-    margin:15px;
-}
-
-.txt-form{
-    background-color:#778899;
-    display:flex;
-    flex-direction:column;
-    width:65vw;
-    border-radius:5px;
-    box-shadow:1px 1px 1px 1px #558549;
+    box-shadow:1px 1px 1px 1px #5b656e;
     margin:15px;
 }
 
@@ -156,7 +147,7 @@ h2 a{
 .file{transition:0.5s}
 .file:hover{
     color:white;
-    transform: scale(1.0);
+    transform: scale(1.2);
 
 }
 
@@ -258,3 +249,32 @@ li.dropdown {
     width: 100%;
     height: 100%;
 }
+
+
+
+
+
+ /* The alert message box */
+ .alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+  }
+  
+  /* The close button */
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  /* When moving the mouse over the close button */
+  .closebtn:hover {
+    color: black;
+  } 
