@@ -1,3 +1,4 @@
+from math import prod
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .forms import Categorie, Commande, Client, Produit,ListeProduit
@@ -314,12 +315,19 @@ def affiche_liste_produit(request, id):
 def update_liste_produit(request, id):
 	liste_produit = models.liste_pc.objects.get(pk=id)
 	form = ListeProduit(liste_produit.dictionnaire())
+	stock_produit_commande = int(liste_produit.produit.stock) + int(form["quantite"].value())
+	models.produit.objects.filter(pk=liste_produit.produit.id).update(stock=stock_produit_commande) #remet la valeurs initial du stock
 	return render(request,'liste-produit/formulaire_lp.html',{"form_lp": form, "id_lp":id})
 
 
 def updatetraitement_liste_produit(request, id):
 	form = ListeProduit(request.POST)
-	if form.is_valid():
+	produit_commande = request.POST["produit"]
+	stock_produit = models.produit.objects.get(pk=produit_commande)
+	quantite_commande = request.POST["quantite"]
+	if form.is_valid() and int(stock_produit.stock) >= int(quantite_commande):
+		new_stock = int(stock_produit.stock)-int(quantite_commande)
+		models.produit.objects.filter(pk=produit_commande).update(stock=new_stock)
 		liste_produit = form.save(commit=False)
 		liste_produit.id = id
 		liste_produit.save()
@@ -327,7 +335,11 @@ def updatetraitement_liste_produit(request, id):
 	else:
 		return render(request,"liste-produit/formulaire_lp.html",{"form_lp": form, "id_lp":id})
 
+
 def delete_liste_produit(request, id):
 	liste_produit = models.liste_pc.objects.get(pk=id)
 	liste_produit.delete()
+	form = ListeProduit(liste_produit.dictionnaire())
+	stock_produit_commande = int(liste_produit.produit.stock) + int(form["quantite"].value())
+	models.produit.objects.filter(pk=liste_produit.produit.id).update(stock=stock_produit_commande)
 	return HttpResponseRedirect("/drive/index-liste-produit/")
