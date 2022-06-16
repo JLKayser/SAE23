@@ -5,7 +5,7 @@ Drive
 {% block content %}
     <div>
         {{ lp.commande.client.prenom }} {{ lp.commande.client.nom }} à commandé  {{ lp.quantite }} {{ lp.produit.produit }}<br>
-        Pour un prix totale de : {{ prix }}€<br>
+        Pour un prix totale de : {{ produit.prix }}€<br>
         <button><a href="/drive/index-liste-produit/">RETOUR</a></button>
     </div>
 {% endblock %}

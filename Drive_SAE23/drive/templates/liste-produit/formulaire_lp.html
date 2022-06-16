@@ -3,12 +3,6 @@
 Drive
 {% endblock %}
 {% block content %}
-{% if alert %}
-    <div class="alert">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        {{ alert }}
-    </div>
-{% endif %}
     {% if id_lp == none %}
         <form method="post" action="/drive/traitement-liste-produit/">  
     {% else %}

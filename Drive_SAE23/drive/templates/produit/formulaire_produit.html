@@ -11,5 +11,11 @@ Drive
     {% endif %}
     {% csrf_token %}
     {{ form_produit.as_ul }}
-    <input class="submit-input" type="submit" value="envoyer"\>
+            <input class="submit-input" type="submit" value="envoyer"/></form>
+
+
+            <!--<form method="post" action="/drive/uploadTxt" class="txt-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file">
+                <input class="submit-input" type="submit" value="envoyer" id="produitFile" name="produitFile"/>-->
     {% endblock %}

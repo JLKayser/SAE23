@@ -1,9 +1,11 @@
-from math import prod
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .forms import Categorie, Commande, Client, Produit,ListeProduit
 from . import models
-from django.core.files import File
+from django.http import FileResponse
+from fpdf import FPDF
+import csv
+
 
 def index(request):
 	return render(request, "index.html")
@@ -189,7 +191,7 @@ def delete_client(request, id):
 
 def file_text(request):
 	response = HttpResponse(content_type='text/plain')
-	response['Content-Dispostion'] = 'attachment; filename=Drive.txt'
+	response['Content-Dispostion'] = 'inline; filename=Drive.txt'
 
 	produits = models.produit.objects.all()
 
@@ -217,6 +219,7 @@ def file_text(request):
 	response.writelines(lines2)
 	response.writelines(lines3)
 	return response
+
 
 def formulaire_produit(request):
 	if request.method == "POST":
@@ -272,7 +275,41 @@ def delete_produit(request, id):
 
 
 
-#________________________Liste Produit____________________________ 
+#________________________Liste Produit____________________________
+
+
+def drive_csv(request,id):
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Dispostion'] = 'attachment; filename=drive_csv.csv'
+
+	writer = csv.writer(response)
+#CSV
+	produits = models.produit.objects.all()
+
+	writer.writerow(['Nom Produit','Marque Produit','Auteur Produit','Stock','Prix'])
+
+	for produit in produits:
+		writer.writerow([produit.produit,produit.marques,produit.auteur,produit.stock,produit.prix])
+
+	return response
+
+
+def drive_pdf(request ,id):
+	produit = models.produit.objects.get(pk=id)
+	pdf = FPDF()
+	pdf.add_page()
+	pdf.set_font('Arial', size=16)
+	pdf.cell(200, 10, txt="Voici les éléments de votre produit :", ln=2, align='C')
+	pdf.cell(200, 10, txt="Nom du porduit est " + str(produit.produit), ln=2, align='C')
+	pdf.cell(200, 10, txt="La marque du produit est " + str(produit.marques), ln=2, align='C')
+	pdf.cell(200, 10, txt="L'auteur du produit est " + str(produit.auteur), ln=2, align='C')
+	pdf.cell(200, 10, txt="Le stock est de  " + str(produit.stock), ln=2, align='C')
+	pdf.output('Drive.pdf')
+	response = FileResponse(open("Drive.pdf"))
+	return response
+
+#PDf
+
 def formulaire_liste_produit(request):
 	if request.method == "POST":
 		form = ListeProduit(request)
@@ -288,17 +325,18 @@ def formulaire_liste_produit(request):
 
 def traitement_liste_produit(request):
 	form = ListeProduit(request.POST)
-	produit_commande = request.POST["produit"]
-	stock_produit = models.produit.objects.get(pk=produit_commande)
-	quantite_commande = request.POST["quantite"]
-	if form.is_valid() and int(stock_produit.stock) >= int(quantite_commande):
-		new_stock = int(stock_produit.stock)-int(quantite_commande)
-		models.produit.objects.filter(pk=produit_commande).update(stock=new_stock)
+	if form.is_valid():
+		#stock_produit = ListeProduit(request.POST.dictionnaire())
+		#quantite_commande = request.POST.quantite
+		#if stock_produit > quantite_commande:
+		#	models.produit.objects.update(stock=stock_produit-quantite_commande)
 		liste_produit = form.save(commit=False)
 		liste_produit.save()
 		return HttpResponseRedirect("/drive/index-liste-produit/")
+		#else:
+		#	return render(request,"liste-produit/formulaire_lp.html",{"lp" : liste_produit})
 	else:
-		return render(request,"liste-produit/formulaire_lp.html",{"alert" : "Veuillez rentré des données cohérentes", "form_lp":form})
+		return render(request,"liste-produit/formulaire_lp.html",{"lp" : liste_produit})
 
 def index_liste_produit(request):
 	liste = list(models.liste_pc.objects.all())
@@ -306,28 +344,21 @@ def index_liste_produit(request):
 
 def affiche_liste_produit(request, id):
 	liste_produit = models.liste_pc.objects.get(pk=id)
-	prix_produit_commande = liste_produit.produit.prix
-	quantite_commande = liste_produit.quantite
-	prix_totale_commande = int(prix_produit_commande)*int(quantite_commande)
-	return render(request,'liste-produit/affiche_lp.html',{"lp": liste_produit,"prix":prix_totale_commande}) #
+	#quantite_commande = ListeProduit(liste_produit.produit.prix)
+	#prix_produit_commande = ListeProduit(liste_produit.quantite)
+	#prix_totale_commande = int(prix_produit_commande)*int(quantite_commande)
+	return render(request,'liste-produit/affiche_lp.html',{"lp": liste_produit}) #, "prix":prix_totale_commande
 
 
 def update_liste_produit(request, id):
 	liste_produit = models.liste_pc.objects.get(pk=id)
 	form = ListeProduit(liste_produit.dictionnaire())
-	stock_produit_commande = int(liste_produit.produit.stock) + int(form["quantite"].value())
-	models.produit.objects.filter(pk=liste_produit.produit.id).update(stock=stock_produit_commande) #remet la valeurs initial du stock
 	return render(request,'liste-produit/formulaire_lp.html',{"form_lp": form, "id_lp":id})
 
 
 def updatetraitement_liste_produit(request, id):
 	form = ListeProduit(request.POST)
-	produit_commande = request.POST["produit"]
-	stock_produit = models.produit.objects.get(pk=produit_commande)
-	quantite_commande = request.POST["quantite"]
-	if form.is_valid() and int(stock_produit.stock) >= int(quantite_commande):
-		new_stock = int(stock_produit.stock)-int(quantite_commande)
-		models.produit.objects.filter(pk=produit_commande).update(stock=new_stock)
+	if form.is_valid():
 		liste_produit = form.save(commit=False)
 		liste_produit.id = id
 		liste_produit.save()
@@ -335,11 +366,7 @@ def updatetraitement_liste_produit(request, id):
 	else:
 		return render(request,"liste-produit/formulaire_lp.html",{"form_lp": form, "id_lp":id})
 
-
 def delete_liste_produit(request, id):
 	liste_produit = models.liste_pc.objects.get(pk=id)
 	liste_produit.delete()
-	form = ListeProduit(liste_produit.dictionnaire())
-	stock_produit_commande = int(liste_produit.produit.stock) + int(form["quantite"].value())
-	models.produit.objects.filter(pk=liste_produit.produit.id).update(stock=stock_produit_commande)
 	return HttpResponseRedirect("/drive/index-liste-produit/")

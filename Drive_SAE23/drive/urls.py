@@ -42,5 +42,7 @@ urlpatterns = [
     path('drive/affiche-liste-produit/<int:id>/', views.affiche_liste_produit),
     path('drive/delete-liste-produit/<int:id>/', views.delete_liste_produit),
     path('drive/update-liste-produit/<int:id>/', views.update_liste_produit),
-    path('drive/updatetraitement-liste-produit/<int:id>/', views.updatetraitement_liste_produit)
+    path('drive/updatetraitement-liste-produit/<int:id>/', views.updatetraitement_liste_produit),
+    path('drive/drive_pdf/<int:id>/', views.drive_pdf),
+    path('drive/drive_csv/<int:id>/', views.drive_csv, name='drive_csv'),
 ]
