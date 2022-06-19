@@ -1,3 +1,9 @@
+{ CREATE DATABASE SAE23; }
+Permet de créer une database puis de mettre nos tables dans cette database
+
+{ USE SAE23; }
+Permet de rentrer dans la database
+
 { CREATE USER “SAE23”@”localhost” IDENTIFIED BY “toto”; }
 Après avoir créé l'utilisateur nous devons lui donner tous les privilèges grâce à la commande :
 
